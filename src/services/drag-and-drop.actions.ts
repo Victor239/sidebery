@@ -263,7 +263,9 @@ function getDstIndexInside(dstType: DropType, dst: DstPlaceInfo): number {
       const branchLen = Tabs.getBranchLen(parent.id) ?? 0
       return parent.index + branchLen + 1
     } else {
-      return dstPanel.nextTabIndex ?? Tabs.list.length
+      // Use the setting to determine whether to drop at start or end
+      const dropAtStart = Settings.state.moveTabToPanel === 'start'
+      return dropAtStart ? dstPanel.startTabIndex : (dstPanel.nextTabIndex ?? Tabs.list.length)
     }
   }
   // To the last position in bookmarks children list
